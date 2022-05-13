@@ -21,7 +21,7 @@ public class DeConn {
 	private static final String PASSWORD = "FOR_SEMI";
 	
 	private Statement stat;
-	private  Connection conn2;
+	private Connection conn2;
 //	private PreparedStatement pstat;
 	private ResultSet rs;
 	
