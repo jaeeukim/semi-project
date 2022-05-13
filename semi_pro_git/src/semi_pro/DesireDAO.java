@@ -34,10 +34,17 @@ public class DesireDAO {
 //		return false;
 //	}
 	
+	public DesireDAO() {
+		try {
+			dc = new DeConn("localhost", "1521", "XEPDB1", "for_semi", "for_semi");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public boolean add_prod(DesireVO data) {
-		String query = String.format("INSERT INTO DESIRE_T VALUES('%s', '%s', '%d', '%s', '%s', '%d'",
-				data.getProd_name()
+		String query = String.format("INSERT INTO DESIRE_T VALUES('%s', '%s', '%d', '%s', '%s', '%d')"
+				, data.getProd_name()
 				, data.getProd_type()
 				, data.getProd_price()
 				, data.getReason()

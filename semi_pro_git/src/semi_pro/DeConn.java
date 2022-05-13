@@ -17,13 +17,43 @@ public class DeConn {
 	
 	private final static String DRIVER_NAME = "oracle.jdbc.driver.OracleDriver";
 	private final static String URL =  "jdbc:oracle:thin:@localhost:1521/XEPDB1";
+	private final static String BASE_URL = "jdbc:oracle:thin:@";
+	
 	private static final String USER_NAME = "FOR_SEMI";
 	private static final String PASSWORD = "FOR_SEMI";
 	
+	private String url_address;
 	private Statement stat;
 	private Connection conn2;
 //	private PreparedStatement pstat;
 	private ResultSet rs;
+	
+	public DeConn(String domain, String port, String serviceName, String username, String password) throws Exception {
+		url_address = String.format("%s:%s/%s", domain, port, serviceName);
+		this.initConnect(username, password);
+	}
+	
+	private void initConnect(String username, String password) throws Exception {
+		// Driver 등록
+		Class.forName(DRIVER_NAME);
+		
+		// DBMS 연결
+		conn2 = DriverManager.getConnection(BASE_URL + url_address, username, password);
+		conn2.setAutoCommit(false);
+		
+		//  Statement 생성
+		 stat = conn2.createStatement();
+	}
+	
+	public void close() throws Exception {
+		// 5. 연결 해제
+		this.stat.close();
+	//	this.pstat.close();
+		this.conn2.close();
+	}
+	
+	
+	
 	
 	
 //	public DeConn(File config) throws Exception {
@@ -43,22 +73,7 @@ public class DeConn {
 //	}
 	
 	
-	public DeConn() throws Exception {
-		this.initConnect();
-	}
-	
-	private void initConnect() throws Exception {
-		// Driver 등록
-		Class.forName(DRIVER_NAME);
-		
-		// DBMS 연결
-		conn2 = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
-		conn2.setAutoCommit(false);
-		
-		//  Statement 생성
-		 stat = conn2.createStatement();
-	}
-	
+
 //	private void initConnect(String username, String password) throws Exception {
 //		// Driver 등록
 //		Class.forName(DRIVER_NAME);
@@ -106,12 +121,7 @@ public class DeConn {
 		this.conn2.rollback();
 	}
 	
-	public void close() throws Exception {
-		// 5. 연결 해제
-		this.stat.close();
-	//	this.pstat.close();
-		this.conn2.close();
-	}
+
 	
 	
 //	public static void main(String[] args) throws Exception {
