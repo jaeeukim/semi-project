@@ -6,10 +6,13 @@ import java.util.Scanner;
 public class DesirceController {
 	Scanner sc = new Scanner(System.in);
 	private DesireDAO dao = new DesireDAO();
-	private Conn db;
+	private DeConn dc;
 	
-	// 
-	public boolean desire() {
-		
-	}
+	// 추가용
+//	public boolean join(DesireVO data) {
+//		DesireVO check = dao.get(data.getProd_name());
+//		
+//		boolean result = dao.add_prod(data);
+//		return result;
+//	}
 }

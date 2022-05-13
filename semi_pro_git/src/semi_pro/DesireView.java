@@ -5,7 +5,9 @@ import java.util.Scanner;
 public class DesireView {
 	Scanner sc = new Scanner(System.in);
 	private Menu menu = new Menu();
-	
+	private DesireVO dv = new DesireVO();
+	private DesireDAO dd = new DesireDAO();
+
 	public void show() {
 		while(true) {
 			menu.getMenu();
@@ -32,13 +34,14 @@ public class DesireView {
 
 	private void modify_menu() {
 		menu.getMenu_modify();
-		
+		DesireVO data = new DesireVO();
+				
 		while(true) {
 			System.out.print(" >>>  ");
 			String input = sc.nextLine();
 			switch(input) {
 				case "1":
-					this.add_prod();
+					dd.add_prod(data);
 					break;
 				case "2":
 					//this.modify_prod();
@@ -55,10 +58,7 @@ public class DesireView {
 		
 	}
 
-	private void add_prod() {
-		
-	}
-
+	
 	
 	
 	
