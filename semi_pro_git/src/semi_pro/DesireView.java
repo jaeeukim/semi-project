@@ -18,22 +18,23 @@ public class DesireView {
 
 			switch(input) {
 				case "1":
-					//목록보기
+					// 목록보기
 					this.look_list();
 					break;
 				case "2":
+					// 수정프로그램실행
 					this.modify_menu();
 					break;
 				case "3":
+					// 프로그램 종료
 					System.exit(0);
 				default :
 					System.out.println("잘못된 번호 입력.");	
 			}		
 		}		
-		
-	
 	}
-
+	
+	// 목록보기 실행
 	private void look_list() {
 		System.out.println("어떤 아이템의 정보를 확인하시겠습니까?");
 		System.out.print("물건 명 입력 : ");
@@ -50,7 +51,9 @@ public class DesireView {
 		System.out.println("===================================");
 		System.out.println("\n\n\n");
 	}
-
+	
+	
+	// 수정프로그램 실행
 	private void modify_menu() {
 		DesireVO data = new DesireVO();
 				
@@ -61,15 +64,19 @@ public class DesireView {
 			
 			switch(input) {
 				case "1":
+					// 추가메뉴
 					this.add_list();
 					break;
 				case "2":
+					// 수정메뉴
 					//this.modify_prod();
 					break;
 				case "3":
+					// 삭제메뉴
 					this.delete_list();
 					break;
 				case "4":
+					// 프로그램제거
 					System.exit(0);
 				default :
 					System.out.println("잘못된 번호 입력.");	
@@ -113,11 +120,11 @@ public class DesireView {
 		System.out.print("물건의 이름 : ");
 		String find_name = sc.nextLine();
 		DesireVO data = dao.get(find_name);
-		
+	
 		if(dc.delete_prod(data)) {
-			System.out.println("탈퇴 처리가 완료되었습니다.");
+			System.out.println("삭제 처리가 완료되었습니다.");
 		} else {
-			System.out.println("탈퇴를 수행할 수 없습니다.");
+			System.out.println("삭제를 수행할 수 없습니다.");
 		}
 	}
 	

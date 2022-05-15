@@ -76,7 +76,7 @@ public class DesireDAO {
 	
 	// 물건 정보 삭제
 	public boolean delete_prod(DesireVO data) {
-		String query = "DELETE FORM desire_t WHERE prod_name = ?";
+		String query = "DELETE FROM desire_t WHERE prod_name = ?";
 		
 		try {
 			PreparedStatement pstat = dc.getPstat(query);
