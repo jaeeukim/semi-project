@@ -91,26 +91,6 @@ public class DeConn {
 	
 	
 	
-	
-//	public ResultSet sendSelectQuery(String sql) throws Exception{
-//	rs = this.stat.executeQuery(sql);
-//	return rs;
-//}
-//
-//public int sendInsertQuery(String sql) throws Exception{
-//	int rs = this.stat.executeUpdate(sql);
-//	return rs;
-//}
-//
-//public int sendDeleteQuery(String sql) throws Exception{
-//	int rs = this.stat.executeUpdate(sql);
-//	return rs;
-//}
-//
-//public int sendUpdateQuery(String sql) throws Exception{
-//	int rs = this.stat.executeUpdate(sql);
-//	return rs;
-//}
 		
 	
 	

@@ -72,6 +72,36 @@ public class DesireDAO {
 		return null;
 	}
 	
+	// 해당 물건 정보 수정
+	public boolean update_prod(DesireVO data) {
+		String query = "UPDATE desire_t SET prod_type = ?, prod_price = ?"
+				+ ", reason = ?, exp_use = ?, des_percentage = ?"
+				+ "WHERE prod_name = ?"; 
+
+		try {
+			PreparedStatement pstat;
+			pstat = dc.getPstat(query);
+		
+			pstat.setString(1, data.getProd_type());
+			pstat.setInt(2, data.getProd_price());
+			pstat.setString(3, data.getReason());
+			pstat.setString(4, data.getExp_use());
+			pstat.setInt(5, data.getDes_percentage());
+			pstat.setString(6, data.getProd_name());
+		
+			int rs = dc.sendUpdateQuery();
+			if(rs == 1) {
+				dc.commit();
+				return true;
+			}
+			dc.rollback();;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
 	
 	
 	// 물건 정보 삭제
@@ -94,10 +124,29 @@ public class DesireDAO {
 		return false;
 		
 	}
+
+
+
 	
-	
-	
-	
+	// 해당하는 물건이 있는지 찾기
+	public boolean find(String prod_name) {
+		String query = "SELECT * FROM desire_t WHERE prod_name = ?";
+		
+		try {
+			PreparedStatement pstat = dc.getPstat(query);
+			pstat.setString(1, prod_name);
+			
+			ResultSet rs = dc.sendSelectQuery();
+
+			if(rs.next()) {
+				return true;
+			} 
+			rs.close();
+		}   catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 	
 	
 	
