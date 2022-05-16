@@ -39,17 +39,20 @@ public class DesireView {
 		System.out.println("어떤 아이템의 정보를 확인하시겠습니까?");
 		System.out.print("물건 명 입력 : ");
 		String str = sc.nextLine();
-		
 		DesireVO data = dao.get(str);
-		System.out.println("물건 이름    : " + data.getProd_name());
-		System.out.println("물건 타입    : " + data.getProd_type());
-		System.out.println("물건 가격    : " + data.getProd_price());
-		System.out.println("필요 이유    : " + data.getReason());
-		System.out.println("예상사용빈도  : " + data.getExp_use());
-		System.out.println("구매욕구     : " + data.getDes_percentage() + " %");
-		
-		System.out.println("===================================");
-		System.out.println("\n\n\n");
+		if(data != null) {
+			System.out.println("물건 이름    : " + data.getProd_name());
+			System.out.println("물건 타입    : " + data.getProd_type());
+			System.out.println("물건 가격    : " + data.getProd_price());
+			System.out.println("필요 이유    : " + data.getReason());
+			System.out.println("예상사용빈도  : " + data.getExp_use());
+			System.out.println("구매욕구     : " + data.getDes_percentage() + " %");
+			
+			System.out.println("===================================");
+			System.out.println("\n\n\n");			
+		}else {
+			System.out.println("해당하는 물건이 없습니다.");
+		}
 	}
 	
 	
@@ -160,31 +163,53 @@ public class DesireView {
 			System.out.println("변경될 예상사용빈도(상/중/하)");
 			System.out.print("  >>> ");
 			str = sc.nextLine();
-			if(!(str.equals("상") || str.equals("중") || str.equals("하"))) {
-				System.out.println("상/중/하 만 입력 가능합니다.");
-				result = false;
-			} else {
-				if(str.isEmpty()) {
-					data.getExp_use();
-				}else {
-					data.setExp_use(str);			
-				}				
-			}
+			if(str.isEmpty()) {
+				data.getExp_use();
+			}else {
+				if(!(str.equals("상") || str.equals("중") || str.equals("하"))) {
+					System.out.println("상/중/하 만 입력 가능합니다.");
+					result = false;
+				} else {
+					data.setExp_use(str);							
+				}
+			}				
+			
+//			if(!(str.equals("상") || str.equals("중") || str.equals("하"))) {
+//				System.out.println("상/중/하 만 입력 가능합니다.");
+//				result = false;
+//			} else {
+//				if(str.isEmpty()) {
+//					data.getExp_use();
+//				}else {
+//					data.setExp_use(str);			
+//				}				
+//			}
 			
 			
 			System.out.println("변경될 구매욕구(%)(0 ~ 100 사이의 값)");
 			System.out.print("  >>> ");
 			str = sc.nextLine();
-			if(Integer.parseInt(str) < 0 || Integer.parseInt(str) > 100) {
-				System.out.println("0과 100 사이의 값을 입력하세요.");
-				result = false;
-			} else {
-				if(str.isEmpty()) {
-					data.getDes_percentage();
+			if(str.isEmpty()) {
+				data.getDes_percentage();
+			}else {
+				if(Integer.parseInt(str) < 0 || Integer.parseInt(str) > 100) {
+					System.out.println("0과 100 사이의 값을 입력하세요.");
+					result = false;
 				}else {
-					data.setDes_percentage(str);
-				} 				
-			}
+					data.setDes_percentage(str);					
+				}
+			} 				
+			
+//			Integer.parseInt(str) < 0 || Integer.parseInt(str) > 100) {
+//			System.out.println("0과 100 사이의 값을 입력하세요.");
+//			result = false;
+//			} else {
+//				if(str.isEmpty()) {
+//					data.getDes_percentage();
+//				}else {
+//					data.setDes_percentage(str);
+//				} 				
+//			}
 			
 			
 			if(dc.update_prod(data) && result) {
@@ -207,10 +232,14 @@ public class DesireView {
 		String find_name = sc.nextLine();
 		DesireVO data = dao.get(find_name);
 	
-		if(dc.delete_prod(data)) {
-			System.out.println("삭제 처리가 완료되었습니다.");
-		} else {
-			System.out.println("삭제를 수행할 수 없습니다.");
+		if(data != null) {
+			if(dc.delete_prod(data)) {
+				System.out.println("삭제 처리가 완료되었습니다.");
+			} else {
+				System.out.println("삭제를 수행할 수 없습니다.");
+			}			
+		}else {
+			System.out.println("해당하는 이름을 가진 물건이 존재하지 않습니다.");
 		}
 	}
 	
